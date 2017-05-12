@@ -1,0 +1,8 @@
+package test;
+option java_package = "com.starzeng.netty.gameserver.proto";
+option java_outer_classname = "TestProto";
+
+message Test {
+  required int32 id=1;
+  required string msg=2;
+}
