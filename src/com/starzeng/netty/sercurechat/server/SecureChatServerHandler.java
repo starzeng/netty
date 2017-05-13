@@ -24,11 +24,8 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<String>
 				.addListener(new GenericFutureListener<Future<Channel>>() {
 					@Override
 					public void operationComplete(Future<Channel> future) throws Exception {
-						ctx.writeAndFlush("Welcome to " + InetAddress.getLocalHost().getHostName() + "==="
-								+ ctx.channel().id() + " secure chat service!\n");
-						ctx.writeAndFlush("Your session is protected by "
-								+ ctx.pipeline().get(SslHandler.class).engine().getSession().getCipherSuite()
-								+ " cipher suite.\n");
+						ctx.writeAndFlush("Welcome to  secure chat service!\n");
+						ctx.writeAndFlush("Your session is protected by cipher suite.\n");
 
 						channels.add(ctx.channel());
 					}
@@ -37,6 +34,7 @@ public class SecureChatServerHandler extends SimpleChannelInboundHandler<String>
 
 	@Override
 	public void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+		System.out.println(msg);
 		// Send the received message to all channels but the current one.
 		for (Channel c : channels) {
 			if (c != ctx.channel()) {

@@ -2,9 +2,8 @@ package com.starzeng.netty.gameserver.server;
 
 import java.net.InetAddress;
 
-import com.starzeng.netty.gameserver.proto.MessageReqProto;
-import com.starzeng.netty.gameserver.proto.MessageRespProto;
-import com.starzeng.netty.gameserver.proto.MessageRespProto.MessageResp;
+import com.starzeng.netty.gameserver.proto.MessageProto;
+import com.starzeng.netty.gameserver.proto.MessageProto.Message;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -39,11 +38,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-		MessageReqProto.MessageReq reqMsg = (MessageReqProto.MessageReq) msg;
+		MessageProto.Message reqMsg = (MessageProto.Message) msg;
 		System.out.println(reqMsg.toString());
-		System.out.println(reqMsg.getId());
-
-		ctx.writeAndFlush(resp(reqMsg.getId()));
+		ctx.writeAndFlush(resp());
 	}
 
 	@Override
@@ -55,18 +52,13 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
 	/**
 	 * protobuf 响应消息封包
 	 * 
-	 * @param id
 	 * @return
 	 */
-	private static MessageRespProto.MessageResp resp(int id) {
-		MessageRespProto.MessageResp.Builder builder = MessageResp.newBuilder();
-		builder.setId(id);
-		builder.setMsg("Server: reqest id is [" + id + "]");
-		return builder.build();
-	}
-
-	public static void main(String[] args) {
-		System.out.println(resp(123));
+	private static Message resp() {
+		MessageProto.Message.Builder message = MessageProto.Message.newBuilder();
+		MessageProto.Body.Builder bodyBuilder = message.getBodyBuilder();
+		bodyBuilder.setCode(2000);
+		return message.build();
 	}
 
 }

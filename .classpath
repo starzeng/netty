@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="libs/netty-all-4.1.10.Final.jar" sourcepath="libs/netty-all-4.1.10.Final-sources.jar"/>
 	<classpathentry kind="lib" path="libs/netty-example-4.1.10.Final-sources.jar"/>
 	<classpathentry kind="lib" path="libs/netty-example-4.1.10.Final.jar" sourcepath="libs/netty-example-4.1.10.Final-sources.jar"/>
-	<classpathentry kind="lib" path="libs/protobuf-java-2.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/protobuf-java-3.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

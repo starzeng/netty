@@ -1,6 +1,6 @@
 package com.starzeng.netty.gameserver.client;
 
-import com.starzeng.netty.gameserver.proto.MessageRespProto;
+import com.starzeng.netty.gameserver.proto.MessageProto;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -26,7 +26,7 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
 		}
 		// ptotobuf 编解码
 		pipeline.addLast(new ProtobufVarint32FrameDecoder());
-		pipeline.addLast(new ProtobufDecoder(MessageRespProto.MessageResp.getDefaultInstance()));
+		pipeline.addLast(new ProtobufDecoder(MessageProto.Message.getDefaultInstance()));
 		pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 		pipeline.addLast(new ProtobufEncoder());
 

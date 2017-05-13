@@ -7,6 +7,8 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 
 public class SecureChatServerInitializer extends ChannelInitializer<SocketChannel> {
@@ -19,6 +21,7 @@ public class SecureChatServerInitializer extends ChannelInitializer<SocketChanne
 	@Override
 	public void initChannel(SocketChannel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
+		pipeline.addLast(new LoggingHandler(LogLevel.INFO));
 
 		// Add SSL handler first to encrypt and decrypt everything.
 		// In this example, we use a bogus certificate in the server side

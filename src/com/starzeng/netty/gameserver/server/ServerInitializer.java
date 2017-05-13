@@ -1,6 +1,6 @@
 package com.starzeng.netty.gameserver.server;
 
-import com.starzeng.netty.gameserver.proto.MessageReqProto;
+import com.starzeng.netty.gameserver.proto.MessageProto;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -32,7 +32,7 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 		// protobuf 编解码
 		// 针对protobuf协议的ProtobufVarint32LengthFieldPrepender()所加的长度属性的解码器
 		pipeline.addLast(new ProtobufVarint32FrameDecoder());
-		pipeline.addLast(new ProtobufDecoder(MessageReqProto.MessageReq.getDefaultInstance()));
+		pipeline.addLast(new ProtobufDecoder(MessageProto.Message.getDefaultInstance()));
 		// 半包解码器 对protobuf协议的的消息头上加上一个长度为32的整形字段，用于标志这个消息的长度。
 		pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
 		pipeline.addLast(new ProtobufEncoder());
@@ -40,5 +40,5 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 		// and then business logic.
 		pipeline.addLast(new ServerHandler());
 	}
-	
+
 }
