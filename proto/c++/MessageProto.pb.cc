@@ -74,7 +74,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, header_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, body_),
 };
 
@@ -135,8 +134,6 @@ void TableStruct::InitDefaultsImpl() {
   _Message_default_instance_.DefaultConstruct();
   _Body_MapsEntry_default_instance_.get_mutable()->set_default_instance(_Body_MapsEntry_default_instance_.get_mutable());
   _Body_MapsEntry_default_instance_.get_mutable()->InitAsDefaultInstance();
-  _Message_default_instance_.get_mutable()->header_ = const_cast< ::Header*>(
-      ::Header::internal_default_instance());
   _Message_default_instance_.get_mutable()->body_ = const_cast< ::Body*>(
       ::Body::internal_default_instance());
 }
@@ -153,12 +150,11 @@ void AddDescriptorsImpl() {
       "(\003\022\014\n\004type\030\004 \001(\005\022\020\n\010priority\030\005 \001(\005\"`\n\004Bo"
       "dy\022\014\n\004code\030\001 \001(\005\022\035\n\004maps\030\002 \003(\0132\017.Body.Ma"
       "psEntry\032+\n\tMapsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-      "ue\030\002 \001(\t:\0028\001\"7\n\007Message\022\027\n\006header\030\001 \001(\0132"
-      "\007.Header\022\023\n\004body\030\002 \001(\0132\005.BodyB\016B\014Message"
-      "Protob\006proto3"
+      "ue\030\002 \001(\t:\0028\001\"\036\n\007Message\022\023\n\004body\030\002 \001(\0132\005."
+      "BodyB\016B\014MessageProtob\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 293);
+      descriptor, 268);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "MessageProto.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -1046,7 +1042,6 @@ Body::mutable_maps() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Message::kHeaderFieldNumber;
 const int Message::kBodyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1063,11 +1058,6 @@ Message::Message(const Message& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_header()) {
-    header_ = new ::Header(*from.header_);
-  } else {
-    header_ = NULL;
-  }
   if (from.has_body()) {
     body_ = new ::Body(*from.body_);
   } else {
@@ -1077,8 +1067,7 @@ Message::Message(const Message& from)
 }
 
 void Message::SharedCtor() {
-  ::memset(&header_, 0, reinterpret_cast<char*>(&body_) -
-    reinterpret_cast<char*>(&header_) + sizeof(body_));
+  body_ = NULL;
   _cached_size_ = 0;
 }
 
@@ -1088,9 +1077,6 @@ Message::~Message() {
 }
 
 void Message::SharedDtor() {
-  if (this != internal_default_instance()) {
-    delete header_;
-  }
   if (this != internal_default_instance()) {
     delete body_;
   }
@@ -1121,10 +1107,6 @@ Message* Message::New(::google::protobuf::Arena* arena) const {
 
 void Message::Clear() {
 // @@protoc_insertion_point(message_clear_start:Message)
-  if (GetArenaNoVirtual() == NULL && header_ != NULL) {
-    delete header_;
-  }
-  header_ = NULL;
   if (GetArenaNoVirtual() == NULL && body_ != NULL) {
     delete body_;
   }
@@ -1141,18 +1123,6 @@ bool Message::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .Header header = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_header()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
       // .Body body = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
@@ -1192,12 +1162,6 @@ void Message::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Header header = 1;
-  if (this->has_header()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->header_, output);
-  }
-
   // .Body body = 2;
   if (this->has_body()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
@@ -1213,13 +1177,6 @@ void Message::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Header header = 1;
-  if (this->has_header()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->header_, deterministic, target);
-  }
-
   // .Body body = 2;
   if (this->has_body()) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -1234,13 +1191,6 @@ void Message::SerializeWithCachedSizes(
 size_t Message::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:Message)
   size_t total_size = 0;
-
-  // .Header header = 1;
-  if (this->has_header()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->header_);
-  }
 
   // .Body body = 2;
   if (this->has_body()) {
@@ -1278,9 +1228,6 @@ void Message::MergeFrom(const Message& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_header()) {
-    mutable_header()->::Header::MergeFrom(from.header());
-  }
   if (from.has_body()) {
     mutable_body()->::Body::MergeFrom(from.body());
   }
@@ -1309,7 +1256,6 @@ void Message::Swap(Message* other) {
   InternalSwap(other);
 }
 void Message::InternalSwap(Message* other) {
-  std::swap(header_, other->header_);
   std::swap(body_, other->body_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1321,45 +1267,6 @@ void Message::InternalSwap(Message* other) {
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Message
-
-// .Header header = 1;
-bool Message::has_header() const {
-  return this != internal_default_instance() && header_ != NULL;
-}
-void Message::clear_header() {
-  if (GetArenaNoVirtual() == NULL && header_ != NULL) delete header_;
-  header_ = NULL;
-}
-const ::Header& Message::header() const {
-  // @@protoc_insertion_point(field_get:Message.header)
-  return header_ != NULL ? *header_
-                         : *::Header::internal_default_instance();
-}
-::Header* Message::mutable_header() {
-  
-  if (header_ == NULL) {
-    header_ = new ::Header;
-  }
-  // @@protoc_insertion_point(field_mutable:Message.header)
-  return header_;
-}
-::Header* Message::release_header() {
-  // @@protoc_insertion_point(field_release:Message.header)
-  
-  ::Header* temp = header_;
-  header_ = NULL;
-  return temp;
-}
-void Message::set_allocated_header(::Header* header) {
-  delete header_;
-  header_ = header;
-  if (header) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:Message.header)
-}
 
 // .Body body = 2;
 bool Message::has_body() const {

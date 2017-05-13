@@ -1,7 +1,5 @@
 package com.starzeng.netty.sercurechat.server;
 
-import java.net.InetAddress;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

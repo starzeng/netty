@@ -352,15 +352,6 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // .Header header = 1;
-  bool has_header() const;
-  void clear_header();
-  static const int kHeaderFieldNumber = 1;
-  const ::Header& header() const;
-  ::Header* mutable_header();
-  ::Header* release_header();
-  void set_allocated_header(::Header* header);
-
   // .Body body = 2;
   bool has_body() const;
   void clear_body();
@@ -374,7 +365,6 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Header* header_;
   ::Body* body_;
   mutable int _cached_size_;
   friend struct protobuf_MessageProto_2eproto::TableStruct;
@@ -498,45 +488,6 @@ Body::mutable_maps() {
 // -------------------------------------------------------------------
 
 // Message
-
-// .Header header = 1;
-inline bool Message::has_header() const {
-  return this != internal_default_instance() && header_ != NULL;
-}
-inline void Message::clear_header() {
-  if (GetArenaNoVirtual() == NULL && header_ != NULL) delete header_;
-  header_ = NULL;
-}
-inline const ::Header& Message::header() const {
-  // @@protoc_insertion_point(field_get:Message.header)
-  return header_ != NULL ? *header_
-                         : *::Header::internal_default_instance();
-}
-inline ::Header* Message::mutable_header() {
-  
-  if (header_ == NULL) {
-    header_ = new ::Header;
-  }
-  // @@protoc_insertion_point(field_mutable:Message.header)
-  return header_;
-}
-inline ::Header* Message::release_header() {
-  // @@protoc_insertion_point(field_release:Message.header)
-  
-  ::Header* temp = header_;
-  header_ = NULL;
-  return temp;
-}
-inline void Message::set_allocated_header(::Header* header) {
-  delete header_;
-  header_ = header;
-  if (header) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:Message.header)
-}
 
 // .Body body = 2;
 inline bool Message::has_body() const {

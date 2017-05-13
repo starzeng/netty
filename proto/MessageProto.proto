@@ -14,7 +14,7 @@ message Body { // 消息体
 	map < string, string > maps = 2; //消息内容key-value
 }
 
-message Message { // 消息
-	Header header = 1; // 消息头
+message Message { //消息
+//	Header header = 1; // 消息头
 	Body body = 2; // 消息体
 }
